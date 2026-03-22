@@ -9,9 +9,12 @@ from datetime import datetime
 # ============================================
 # CONFIGURATION
 # ============================================
-BOT_TOKEN = "8717064816:AAE3pMETlkT4X3Ps8oSmJWlBo28QE7JgMz0"
-CHANNEL = "@fitpickrdeals"
-AFFILIATE_TAG = "rashmiyadav02-20"
+BOT_TOKEN = os.environ.get("BOT_TOKEN")
+CHANNEL = os.environ.get("CHANNEL", "@fitpickrdeals")
+AFFILIATE_TAG = os.environ.get("AFFILIATE_TAG", "rashmiyadav02-20")
+
+if not BOT_TOKEN:
+    raise ValueError("BOT_TOKEN environment variable not set!")
 POSTED_FILE = "posted_deals.json"
 
 # Fitness keywords to filter deals

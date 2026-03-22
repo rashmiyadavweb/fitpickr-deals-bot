@@ -91,20 +91,14 @@ def format_message(deal):
     title = deal["title"]
     link = deal["link"]
     
+    # Clean title - remove special markdown chars
+    title = title.replace("*", "").replace("_", "").replace("`", "").replace("[", "").replace("]", "")
+    
     # Add affiliate tag if Amazon link
     if "amazon.com" in link:
         link = add_affiliate(link)
     
-    message = f"""🔥 *Hot Fitness Deal!*
-
-💪 *{title}*
-
-🛒 {link}
-
-🏋️ _FitPickr Deals — Honest Fitness & Health Picks_
-🌐 fitpickr.lifenbyte.com
-
-#fitness #deals #amazon #health #workout"""
+    message = "🔥 Hot Fitness Deal!\n\n💪 " + title + "\n\n🛒 " + link + "\n\n🏋️ FitPickr Deals - Honest Fitness and Health Picks\n🌐 fitpickr.lifenbyte.com\n\n#fitness #deals #amazon #health #workout"
     
     return message
 
@@ -116,7 +110,6 @@ def send_message(message):
     payload = {
         "chat_id": CHANNEL,
         "text": message,
-        "parse_mode": "Markdown",
         "disable_web_page_preview": False
     }
     response = requests.post(url, json=payload)
